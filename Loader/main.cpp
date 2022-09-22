@@ -2,6 +2,7 @@
 
 int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow)
 {
+    update::InitUpdate();
     // Create application window
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, settings::title, NULL };
     RegisterClassEx(&wc);
@@ -18,6 +19,7 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
     ShowWindow(main_hwnd, SW_HIDE);
     UpdateWindow(main_hwnd);
 
+    CreateDirectory("C:\\Heaven", NULL);
     // Setup Dear ImGui context
     ImGui::CreateContext();
     gui::imageinizilizate();

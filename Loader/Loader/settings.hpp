@@ -15,7 +15,7 @@ namespace settings
 {
 	inline bool visible = true;
 	inline const char* title = "Heaven";
-	inline ImVec2 window_size = { 600, 400 };
+	inline ImVec2 window_size = { 400, 250 };
 	inline ImVec2 window_position = { 0, 0 };
 	inline ImVec2 screen_res = { 0, 0 };
 	inline DWORD window_flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar;

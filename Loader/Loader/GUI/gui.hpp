@@ -1,6 +1,8 @@
 #include "..\settings.hpp"
 #include "..\Injector\memory.hpp"
 
+#include <Lmcons.h>
+
 #pragma comment(lib, "urlmon.lib")
 
 namespace gui
@@ -11,5 +13,5 @@ namespace gui
 	void fontinizilizate();
 	bool LoadTextureFromFile(const char* filename, PDIRECT3DTEXTURE9* out_texture, int* out_width, int* out_height);
 
-	inline static char key[24] = { 0 };
+	inline char username[UNLEN + 1];
 }
