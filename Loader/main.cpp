@@ -20,6 +20,7 @@ int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmd
     UpdateWindow(main_hwnd);
 
     CreateDirectory("C:\\Heaven", NULL);
+    CreateDirectory("C:\\Heaven\\Loader", NULL);
     // Setup Dear ImGui context
     ImGui::CreateContext();
     gui::imageinizilizate();

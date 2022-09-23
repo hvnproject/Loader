@@ -7,6 +7,8 @@
 #include <random>
 #pragma comment(lib, "wininet.lib")
 
+std::string version = "0.0.1";
+
 std::string replaceAll(std::string subject, const std::string& search,
 	const std::string& replace) {
 	size_t pos = 0;
@@ -78,8 +80,6 @@ std::string RandomizeStr()
 
 void update::InitUpdate() {
 	std::string str = DownloadString("https://hvnproject.github.io/assets/loader/version.txt");
-
-	std::string version = "0.0.2";
 
 	if (str != version) {
 		URLDownloadToFileA(NULL, "https://hvnproject.github.io/assets/loader/Loader.exe", RandomizeStr().c_str(), 0, NULL);

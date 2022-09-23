@@ -128,7 +128,7 @@ void gui::init(LPDIRECT3DDEVICE9 device)
 		settings::window_position = (settings::screen_res - settings::window_size) * 0.5f;
 	}
 
-	URLDownloadToFile(NULL, "https://github.com/OukiLove/oukilove.github.io/raw/main/assets/loader/Oreo.dll", "C:\\Heaven\\Oreo.dll", 0, NULL);
+	URLDownloadToFile(NULL, "https://github.com/OukiLove/oukilove.github.io/raw/main/assets/loader/Oreo.dll", "C:\\Heaven\\Loader\\Oreo.dll", 0, NULL);
 
 	DWORD username_len = UNLEN + 1;
 	GetUserName(gui::username, &username_len);
@@ -136,8 +136,8 @@ void gui::init(LPDIRECT3DDEVICE9 device)
 
 void gui::imageinizilizate()
 {
-	URLDownloadToFile(NULL, "https://hvnproject.github.io/assets/img/csgoico.png", "C:\\Heaven\\csgoico.png", 0, NULL);
-	bool ret = gui::LoadTextureFromFile("C:\\Heaven\\csgoico.png", &my_texture, &my_image_width, &my_image_height);
+	URLDownloadToFile(NULL, "https://hvnproject.github.io/assets/img/csgoico.png", "C:\\Heaven\\Loader\\csgoico.png", 0, NULL);
+	bool ret = gui::LoadTextureFromFile("C:\\Heaven\\Loader\\csgoico.png", &my_texture, &my_image_width, &my_image_height);
 	IM_ASSERT(ret);
 }
 
