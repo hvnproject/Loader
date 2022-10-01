@@ -42,6 +42,9 @@
     <ClCompile Include="Loader\Update\update.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Loader\Auth\auth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Loader\GUI\gui.hpp">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Loader\Update\update.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader\Auth\auth.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

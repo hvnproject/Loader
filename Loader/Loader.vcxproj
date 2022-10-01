@@ -74,6 +74,10 @@
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -143,6 +147,7 @@
     <ClCompile Include="Library\ImGui\imgui_impl_win32.cpp" />
     <ClCompile Include="Library\ImGui\imgui_tables.cpp" />
     <ClCompile Include="Library\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Loader\Auth\auth.cpp" />
     <ClCompile Include="Loader\GUI\gui.cpp" />
     <ClCompile Include="Loader\Update\update.cpp" />
     <ClCompile Include="main.cpp" />
@@ -156,6 +161,7 @@
     <ClInclude Include="Library\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Library\ImGui\imstb_textedit.h" />
     <ClInclude Include="Library\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Loader\Auth\auth.hpp" />
     <ClInclude Include="Loader\GUI\gui.hpp" />
     <ClInclude Include="Loader\Injector\memory.hpp" />
     <ClInclude Include="Loader\Update\update.hpp" />

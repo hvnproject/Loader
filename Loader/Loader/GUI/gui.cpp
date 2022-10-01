@@ -1,17 +1,25 @@
 ﻿#include "gui.hpp"
 
-int my_image_width = 0;
-int my_image_height = 0;
-PDIRECT3DTEXTURE9 my_texture = NULL;
+int csgo_image_width = 0;
+int csgo_image_height = 0;
+PDIRECT3DTEXTURE9 csgo_texture = NULL;
+
+int heaven_image_width = 0;
+int heaven_image_height = 0;
+PDIRECT3DTEXTURE9 heaven_texture = NULL;
 
 DWORD pid;
 Injector inj;
 
 ImFont* verdana;
 
-bool Release = false;
-bool Alpha = true;
- 
+bool Release = true;
+bool Alpha = false;
+
+std::string nowHwid = auth::getHWID();
+
+bool Auth = auth::GetAuth(nowHwid);
+
 void gui::gui_element()
 {
 	if (!VISIBLE)
@@ -32,58 +40,17 @@ void gui::gui_element()
 		settings::window_position = ImGui::GetWindowPos();
 		ImDrawList* drawListR = ImGui::GetWindowDrawList();
 
-		drawListR->AddRectFilled(ImVec2(settings::window_position.x + 5, settings::window_position.y + 5), ImVec2(settings::window_position.x + 145, settings::window_position.y + 245), IM_COL32(70, 70, 70, 255));
-
 		ImGui::PushFont(verdana);
-		
-		{
-			drawListR->AddRectFilled(ImVec2(settings::window_position.x + 170, settings::window_position.y + 25), ImVec2(settings::window_position.x + 390, settings::window_position.y + 75), IM_COL32(70, 70, 70, 255));
-			ImGui::SetCursorPos(ImVec2(180, 30));
-			ImGui::Image(my_texture, ImVec2(40, 40));
-
-			ImGui::SetCursorPos(ImVec2(230, 42));
-			ImGui::Text("CS:GO Release");
-
-			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(49.f / 255, 49.f / 255, 49.f / 255, 1.f));
-			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(49.f / 255, 49.f / 255, 49.f / 255, 1.f));
-			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(49.f / 255, 49.f / 255, 49.f / 255, 1.f));
-
-			ImGui::SetCursorPos(ImVec2(330, 38));
-			if (ImGui::Button("Select##1", ImVec2(50, 25))) {
-
-			}
-		}
 
 		{
-			drawListR->AddRectFilled(ImVec2(settings::window_position.x + 170, settings::window_position.y + 85), ImVec2(settings::window_position.x + 390, settings::window_position.y + 135), IM_COL32(70, 70, 70, 255));
-			ImGui::SetCursorPos(ImVec2(180, 90));
-			ImGui::Image(my_texture, ImVec2(40, 40));
+			ImGui::SetCursorPos(ImVec2(-5, -5));
+			ImGui::Image(heaven_texture, ImVec2(50, 50));
 
-			ImGui::SetCursorPos(ImVec2(230, 102));
-			ImGui::Text("CS:GO Alpha");
-
-			ImGui::SetCursorPos(ImVec2(330, 98));
-			if (ImGui::Button("Select##2", ImVec2(50, 25))) {
-
-			}
-
-			ImGui::PopStyleColor(3);
-		}
-
-		{
-			drawListR->AddRectFilled(ImVec2(settings::window_position.x + 170, settings::window_position.y + 145), ImVec2(settings::window_position.x + 390, settings::window_position.y + 195), IM_COL32(70, 70, 70, 255));
-			ImGui::SetCursorPos(ImVec2(180, 152));
-			ImGui::Text(std::string("Username: ").append(gui::username).c_str());
-			ImGui::SetCursorPosX(180);
-			ImGui::Text("Heaven with love <3!");
-		}
-		
-		{
 			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 33.f);
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.f, 0.31f, 0.31f, 1.f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.f, 0.f, 0.f, 1.f));
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(1.f, 0.f, 0.f, 1.f));
-			ImGui::SetCursorPos(ImVec2(377, 5));
+			ImGui::SetCursorPos(ImVec2(377, 10));
 			if (ImGui::Button("##Exit", ImVec2(12, 12))) {
 				VISIBLE = false;
 			}
@@ -91,26 +58,66 @@ void gui::gui_element()
 			ImGui::PopStyleVar();
 		}
 
-		ImGui::SetCursorPos(ImVec2(170, 205));
-		if (pid > 0)
 		{
-			if (ImGui::Button("Inject", ImVec2(220, 40)))
-			{
-				LPVOID ntOpenFile = GetProcAddress(LoadLibraryW(L"ntdll"), "NtOpenFile");
-				if (ntOpenFile) {
-					char originalBytes[5];
-					memcpy(originalBytes, ntOpenFile, 5);
-					WriteProcessMemory(inj.process, ntOpenFile, originalBytes, 5, NULL);
+			drawListR->AddRectFilled(ImVec2(settings::window_position.x + 5, settings::window_position.y + 35), ImVec2(settings::window_position.x + 190, settings::window_position.y + 245), IM_COL32(70, 70, 70, 255), 4.f);
+			drawListR->AddRectFilled(ImVec2(settings::window_position.x + 210, settings::window_position.y + 35), ImVec2(settings::window_position.x + 395, settings::window_position.y + 245), IM_COL32(70, 70, 70, 255), 4.f);
+		}
+
+		{
+			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.f);
+			ImGui::SetCursorPos(ImVec2(10, 45));
+			if (ImGui::Button("##CS:GO Release", ImVec2(175, 30))) {
+				Release = true;
+
+				if (Alpha == true) {
+					Alpha = false;
 				}
-				inj.inject(pid, "C:\\Heaven\\Oreo.dll");
+			}
+			if (Auth) {
+				ImGui::SetCursorPos(ImVec2(10, 85));
+				if (ImGui::Button("##CS:GO Alpha", ImVec2(175, 30))) {
+					Alpha = true;
+
+					if (Release == true) {
+						Release = false;
+					}
+				}
+			}
+			ImGui::PopStyleVar();
+
+			ImGui::SetCursorPos(ImVec2(20, 50));
+			ImGui::Image(csgo_texture, ImVec2(20, 20));
+			ImGui::SetCursorPos(ImVec2(50, 50));
+			ImGui::Text("CS:GO Release");
+
+			if (Auth) {
+				ImGui::SetCursorPos(ImVec2(20, 90));
+				ImGui::Image(csgo_texture, ImVec2(20, 20));
+				ImGui::SetCursorPos(ImVec2(50, 90));
+				ImGui::Text("CS:GO Alpha");
 			}
 		}
-		else
+
 		{
-			if (ImGui::Button("Run CS:GO", ImVec2(220, 40)))
-			{
-				ShellExecuteA(NULL, "open", "steam://rungameid/730", NULL, NULL, SW_SHOWNORMAL);
+			std::string selected_version;
+			if (Alpha == true) {
+				selected_version = "Alpha";
 			}
+			else if (Release == true) {
+				selected_version = "Release";
+			}
+			ImGui::SetCursorPos(ImVec2(215, 40));
+			ImGui::Text(std::string("Username: ").append(gui::username).c_str());
+			ImGui::SetCursorPosX(215);
+			ImGui::Text(std::string("Selected version: ").append(selected_version).c_str());
+			ImGui::SetCursorPosX(215);
+			ImGui::Text("Heaven with love <3!");
+			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.f);
+			ImGui::SetCursorPos(ImVec2(243, 200));
+			if (ImGui::Button("Launch", ImVec2(120, 25))) {
+
+			}
+			ImGui::PopStyleVar();
 		}
 		ImGui::PopFont();
 	}
@@ -137,8 +144,12 @@ void gui::init(LPDIRECT3DDEVICE9 device)
 void gui::imageinizilizate()
 {
 	URLDownloadToFile(NULL, "https://hvnproject.github.io/assets/img/csgoico.png", "C:\\Heaven\\Loader\\csgoico.png", 0, NULL);
-	bool ret = gui::LoadTextureFromFile("C:\\Heaven\\Loader\\csgoico.png", &my_texture, &my_image_width, &my_image_height);
+	bool ret = gui::LoadTextureFromFile("C:\\Heaven\\Loader\\csgoico.png", &csgo_texture, &csgo_image_width, &csgo_image_height);
 	IM_ASSERT(ret);
+
+	URLDownloadToFile(NULL, "https://hvnproject.github.io/assets/img/heaven.png", "C:\\Heaven\\Loader\\heaven.png", 0, NULL);
+	bool ret2 = gui::LoadTextureFromFile("C:\\Heaven\\Loader\\heaven.png", &heaven_texture, &heaven_image_width, &heaven_image_height);
+	IM_ASSERT(ret2);
 }
 
 void gui::fontinizilizate()
@@ -146,5 +157,5 @@ void gui::fontinizilizate()
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->AddFontDefault();
 
-	verdana = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 14.f);
+	verdana = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\Verdana.ttf", 16.f);
 }

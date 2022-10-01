@@ -1,5 +1,6 @@
 #include "..\settings.hpp"
 #include "..\Injector\memory.hpp"
+#include "..\Auth\auth.hpp"
 
 #include <Lmcons.h>
 
