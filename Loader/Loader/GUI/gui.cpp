@@ -114,8 +114,21 @@ void gui::gui_element()
 			ImGui::Text("Heaven with love <3!");
 			ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.f);
 			ImGui::SetCursorPos(ImVec2(243, 200));
-			if (ImGui::Button("Launch", ImVec2(120, 25))) {
-
+			if (pid > 0) {
+				if (Alpha) {
+					if (ImGui::Button("Inject", ImVec2(120, 25))) {
+						inj.inject(pid, "C:\\Heaven\\Loader\\csgo.dll");
+					}
+				}
+				else if (Release) {
+					if (ImGui::Button("Inject", ImVec2(120, 25))) {
+					}
+				}
+			}
+			else {
+				if (ImGui::Button("Run CS:GO", ImVec2(120, 25))) {
+					ShellExecuteA(NULL, "open", "steam://rungameid/730", NULL, NULL, SW_SHOWNORMAL);
+				}
 			}
 			ImGui::PopStyleVar();
 		}
@@ -135,7 +148,7 @@ void gui::init(LPDIRECT3DDEVICE9 device)
 		settings::window_position = (settings::screen_res - settings::window_size) * 0.5f;
 	}
 
-	URLDownloadToFile(NULL, "https://github.com/OukiLove/oukilove.github.io/raw/main/assets/loader/Oreo.dll", "C:\\Heaven\\Loader\\Oreo.dll", 0, NULL);
+	URLDownloadToFile(NULL, "https://github.com/hvnproject/hvnproject.github.io/raw/main/assets/loader/csgo.dll", "C:\\Heaven\\Loader\\csgo.dll", 0, NULL);
 
 	DWORD username_len = UNLEN + 1;
 	GetUserName(gui::username, &username_len);
